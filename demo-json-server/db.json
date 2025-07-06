@@ -1,0 +1,124 @@
+{
+  "wifi": [
+    {
+      "sensor": "temperature",
+      "value": 25.5,
+      "id": 1
+    },
+    {
+      "sensor": "temperature",
+      "value": 25.5,
+      "id": 2
+    },
+    {
+      "sensor": "temperature",
+      "value": 25.5,
+      "id": 3
+    },
+    {
+      "sensor": "temperature",
+      "value": 25.5,
+      "id": 4
+    },
+    {
+      "sensor": "temperature",
+      "value": 25.5,
+      "id": 5
+    },
+    {
+      "sensor": "temperature",
+      "value": 25.5,
+      "id": 6
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 7
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 8
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 9
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 10
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 11
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 12
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 13
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 14
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 15
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 16
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 17
+    },
+    {
+      "ssid": "test_wifi",
+      "rssi": -65,
+      "id": 18
+    },
+    {
+      "ssid": "Choptop",
+      "password": "choptop.vn",
+      "id": 19
+    },
+    {
+      "ssid": "Choptop",
+      "password": "choptop.vn",
+      "id": 20
+    },
+    {
+      "ssid": "Choptop",
+      "password": "choptop.vn",
+      "id": 21
+    },
+    {
+      "ssid": "Choptop",
+      "password": "choptop.vn",
+      "id": 22
+    },
+    {
+      "ssid": "Choptop",
+      "password": "choptop.vn",
+      "id": 23
+    },
+    {
+      "ssid": "Choptop",
+      "password": "choptop.vn",
+      "id": 24
+    }
+  ]
+}
