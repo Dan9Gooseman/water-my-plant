@@ -8,6 +8,7 @@ pnpm-lock.yaml
 
 # Build output
 dist/
+dist-ssr
 build/
 
 # Logs
@@ -24,6 +25,13 @@ Thumbs.db
 .env
 .env.*.local
 
-# IDE files
+# IDE files $ direcories
 .vscode/
 .idea/
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.local
