@@ -10,20 +10,22 @@ const rssiData = [];
 
 const chart = new Chart(chartCtx, {
     type: "line",
-    data : {
+    data: {
         labels,
         datasets: [{
-            label: "RSSI",
+            label: "Recieved Signal Strength Indicator",
             data: rssiData,
             borderColor: "blue",
-            fill:false,
+            fill: false,
         }]
     },
     options: {
         scales: {
-            x: {display:false},
-            y: {beginAtZero:false},
-        }
+            x: { display: false },
+            y: { beginAtZero: false },
+        },
+        // responsive: true,
+        // maintainAspectRatio: true,
     }
 })
 
@@ -32,14 +34,18 @@ socket.on("initial-data", (data) => {
     data.forEach(d => addData(d));
 })
 
+socket.on("wifi-data", (data) => {
+    addData(data);
+});
+
 function addData(data) {
     const item = document.createElement("li");
-    item.innerText = `[${new Date(data.time).toLocaleTimeString()}] | SSID: ${data.ssid} | RSSI: ${data.rssi}}]`;
+    item.innerText = `[${new Date(data.time).toLocaleTimeString()}] | SSID: ${data.ssid} | RSSI: ${data.rssi * (-1)}}]`;
     list.prepend(item);
 
-    if (list.children.length > 50) list.removeChild(list.lastChild);
+    if (list.children.length > 10) list.removeChild(list.lastChild);
 
-    labels.push(new Date(date.time).toLocaleTimeString());
+    labels.push(new Date(data.time).toLocaleTimeString());
     rssiData.push(data.rssi);
     if (labels.length > 50) {
         labels.shift();
