@@ -33,6 +33,16 @@ application.post("/api/add-wifi", async (request, response) => {
     }
 })
 
+application.get("/api/get-wifi-data", async (request, response) => {
+    try {
+        const data = await WifiRecord.find().sort({ time: -1}).limit(50);
+        response.status(200).json({data: data.reverse()});
+    } catch (error) {
+        response.status(500).json({message: "Cannot get data ", error: error.message});
+    }
+})
+
+//server & socket init
 const server = createServer(application);
 const io = new Server(server);
 process.on("warning", warning => console.warn(warning.name + "|" + warning.message + "|" + warning.stack));
@@ -60,6 +70,6 @@ io.on("connection", async (socket) => {
     });
 });
 
-server.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, process.env.IP , () => {
     console.log("Server running on port " + process.env.PORT);
 })
