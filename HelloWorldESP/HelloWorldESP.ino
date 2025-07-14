@@ -2,10 +2,11 @@
 #include "time.h"
 #include "HTTPClient.h"
 #include "ArduinoJson.h"
+#include "secret.h"
 
-const char* ssid = "Choptop";
-const char* password = "choptop.vn";
-const char* serverUrl = "http://192.168.1.83:3000/api/add-wifi";
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASSWORD;
+const char* serverUrl = SERVER_URL;
 // const char* ntpServer = "pool.ntp.org";
 // const long gmtOffset_sec = 7 * 3600;
 // const int daylightOffset_sec = 0;
