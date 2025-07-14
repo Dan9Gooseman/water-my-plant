@@ -10,15 +10,32 @@
     <style>
         .chart-container {
             width:100%;
+            max-width: 1000px;
             height: 400px;
+            display: flex;
+            justify-content: center;
+        }
+        .headline{
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <h1>Dữ liệu wifi từ esp</h1>
-    <ul id="wifi-list"></ul>
-    <div class="chart-container">
-        <canvas id="wifi-chart" class="wifi-chart"></canvas>
+    <h1 class="headline">Dữ liệu realtime từ esp32</h1>
+    <br>
+    <div class="container">
+        <h3>Dữ liệu mới nhất</h3>
+        <ul id="wifi-list"></ul>
+        <br>
+        <h3>Lịch sử</h3>
+        <div class="chart-container">
+            <canvas id="wifi-chart" class="wifi-chart"></canvas>
+        </div>
     </div>
     <script src="/client.js"></script>
 </body>

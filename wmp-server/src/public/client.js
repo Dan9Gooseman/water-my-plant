@@ -40,10 +40,10 @@ socket.on("wifi-data", (data) => {
 
 function addData(data) {
     const item = document.createElement("li");
-    item.innerText = `[${new Date(data.time).toLocaleTimeString()}] | SSID: ${data.ssid} | RSSI: ${data.rssi * (-1)}}]`;
+    item.innerText = `[${new Date(data.time).toLocaleString()}] | RSSI: -${data.rssi} dBm`;
     list.prepend(item);
 
-    if (list.children.length > 10) list.removeChild(list.lastChild);
+    if (list.children.length > 1) list.removeChild(list.lastChild);
 
     labels.push(new Date(data.time).toLocaleTimeString());
     rssiData.push(data.rssi);
