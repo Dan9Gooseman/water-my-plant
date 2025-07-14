@@ -1,27 +1,83 @@
 #include "WiFi.h"
+#include "time.h"
 #include "HTTPClient.h"
 #include "ArduinoJson.h"
 
 const char* ssid = "Choptop";
 const char* password = "choptop.vn";
-const char* serverUrl = "http://192.168.1.83:3000/wifi";
+const char* serverUrl = "http://192.168.1.83:3000/api/add-wifi";
+// const char* ntpServer = "pool.ntp.org";
+// const long gmtOffset_sec = 7 * 3600;
+// const int daylightOffset_sec = 0;
+
+//utility
+// void printLocalTime() {
+//   struct tm timeinfo;
+//   if(!getLocalTime(&timeinfo)){
+//     Serial.println("Failed to obtain time");
+//     return;
+//   }
+//   Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+//   Serial.print("Day of week: ");
+//   Serial.println(&timeinfo, "%A");
+//   Serial.print("Month: ");
+//   Serial.println(&timeinfo, "%B");
+//   Serial.print("Day of Month: ");
+//   Serial.println(&timeinfo, "%d");
+//   Serial.print("Year: ");
+//   Serial.println(&timeinfo, "%Y");
+//   Serial.print("Hour: ");
+//   Serial.println(&timeinfo, "%H");
+//   Serial.print("Hour (12 hour format): ");
+//   Serial.println(&timeinfo, "%I");
+//   Serial.print("Minute: ");
+//   Serial.println(&timeinfo, "%M");
+//   Serial.print("Second: ");
+//   Serial.println(&timeinfo, "%S");
+
+//   Serial.println("Time variables");
+//   char timeHour[3];
+//   strftime(timeHour,3, "%H", &timeinfo);
+//   Serial.println(timeHour);
+//   char timeWeekDay[10];
+//   strftime(timeWeekDay,10, "%A", &timeinfo);
+//   Serial.println(timeWeekDay);
+//   Serial.println();
+// }
 
 void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password);
-  Serial.println("Đang kết nối wifi...");
+  Serial.println("Connecting to wifi...");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\n Đã kết nối WiFi!");
-  
+  Serial.println("\n Wifi connected!");
+  // configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  // printLocalTime();
 }
 
 void loop() {
-  String json = "{\"ssid\":\"" + String(ssid) + "\",\"password\":\"" + String(password) + "\"}";
+  //get current time
+  // time_t now;
+  // char strftime_buf[64];
+  // struct tm timeinfo;
 
-  StaticJsonDocument<200> doc; // Adjust size as needed
+  // time(&now);
+  // setenv("TZ", "ICT-7", 1); //indo time == vietnam
+  // tzset();
+
+  // localtime_r(&now, &timeinfo);
+  // strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
+  // Serial.printf("Thời gian hiện tại ở Việt Nam: %s\n", strftime_buf);
+  // printLocalTime();
+
+  //wifi detail
+  int rssi = WiFi.RSSI();
+  String json = "{\"ssid\":\"" + String(ssid) + "\",\"rssi\":\"" + rssi * (-1) + "\"}";
+  Serial.println(json);
+  StaticJsonDocument<200> doc;
   doc["sensor"] = "temperature";
   doc["value"] = 25.5;
   String jsonString;
@@ -64,5 +120,5 @@ void loop() {
 
   Serial.println("------------------------\n");
   // Serial.println(WiFi.localIP());
-  delay(10000);  // Đợi 10 giây rồi quét lại
+  delay(10000);  // 10s loop
 }
