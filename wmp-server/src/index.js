@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import WifiRecord from "./models/wifiRecords.js";
 import process from "node:process";
+// import WifiRecordController from "./controllers/WifiRecordController.js";
+import createWifiRouter from "./routes/routes.js";
 
 dotenv.config()
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -19,28 +21,6 @@ application.use(express.urlencoded({extended:true}));
 // application.use(express.static(join(__dirname, "public")))
 application.use(express.static(__dirname + "/public"));
 
-//api
-application.post("/api/add-wifi", async (request, response) => {
-    try {
-        const data = request.body;
-        const record = new WifiRecord(data);
-        await record.save();
-        io.emit("wifi-data", record);
-        response.status(200).json({message: "Saved ", record});
-    } catch(error) {
-        // console.log(error);
-        response.status(500).json({message: "Cannot save data ", error: error.message});
-    }
-})
-
-application.get("/api/get-wifi-data", async (request, response) => {
-    try {
-        const data = await WifiRecord.find().sort({ time: -1}).limit(50);
-        response.status(200).json({data: data.reverse()});
-    } catch (error) {
-        response.status(500).json({message: "Cannot get data ", error: error.message});
-    }
-})
 
 //server & socket init
 const server = createServer(application);
@@ -48,7 +28,6 @@ const io = new Server(server);
 process.on("warning", warning => console.warn(warning.name + "|" + warning.message + "|" + warning.stack));
 
 connect_to_db(process.env.dbURL);
-
 io.on("connection", async (socket) => {
     console.log("Client connected.");
 
@@ -69,6 +48,16 @@ io.on("connection", async (socket) => {
         console.log("Client disconnected.");
     });
 });
+
+//route handling
+// const wifiRouter = express.Router();
+// const wifiRecordController = new WifiRecordController(io);
+
+// wifiRouter.post("/add-wifi", wifiRecordController.createWifiRecord);
+// wifiRouter.get("/get-wifi", wifiRecordController.getWifiRecord);
+// application.use("/api/wifi", wifiRouter);
+const wifiRouter = createWifiRouter(io);
+application.use("/api/wifi", wifiRouter);
 
 server.listen(process.env.PORT, process.env.IP , () => {
     console.log("Server running on port " + process.env.PORT);
